@@ -1,4 +1,5 @@
 import openai
+from datetime import datetime
 
 class chatGPT:
     _lastmsg = ""
@@ -32,11 +33,10 @@ class chatGPT:
     
     async def masqueicogpt(message):
         user_input = message.content
-        print(f'gptinput: {user_input} ({message.author.name})')
         try:
             response = chatGPT.conversar_com_gpt(f'Mensagem atual a ser respondida: {user_input} // A sua resposta é: ')
             await message.channel.send(response)
-            print(f"lastmsg = {chatGPT._lastmsg}, response = {response}")
+            print(f'{datetime.now()} - gpt -> input: {user_input}; response: {response} ({message.author.name})')
             chatGPT._lastmsg = user_input
         except openai.error.RateLimitError:
             await message.channel.send("Erro: RateLimitError...")

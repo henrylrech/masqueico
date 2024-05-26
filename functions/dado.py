@@ -1,15 +1,15 @@
 import random
 import re
+from datetime import datetime
 
 class Dado():
     def busca_dado(message):
-        padrao = re.compile("\A[0-9]{0,4}[dD][0-9]{1,4}") #padrão da mensagem para só rodar o código quando segue o padrão (0 a 4 números no começo, um d e mais 0 a 4 numeros dps)
+        padrao = re.compile("[0-9]{0,4}[dD][0-9]{1,4}") #padrão da mensagem para só rodar o código quando segue o padrão (0 a 4 números no começo, um d e mais 0 a 4 numeros dps)
         #ele tambem tira fora o resto da mensagem, se for d20+10 ele pega só o d20
         return padrao.search(message.content)
 
     async def roda_dado(busca, message):
         dnumero = busca.group()
-        print(f'dado: {dnumero} ({message.author.name})')
         if dnumero[0].isnumeric(): #se o primeiro digito é um numero fica mais complexo, se não é só rodar o dado
             dnumero = dnumero.lower() #transformar o D maiusculo em d para rodar a linha 24 sem quebrar
             num1, num2 = dnumero.split('d')    
@@ -37,6 +37,8 @@ class Dado():
                     numero = dado[x]
                     dado[x] = f'**{numero}**'
             dado = (f"[{', '.join(dado)}]")
+
+        print(f'{datetime.now()} - dado -> {dnumero} resultado: {dado} ({message.author.name})')
 
         try:
             teste_de_erro = str(message.content[len(dnumero)]) #linha para dar erro se não houver conta matemática no dado ex: d20+10, se não houver + ou - vai pro except

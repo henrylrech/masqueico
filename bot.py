@@ -9,7 +9,7 @@ from functions.qrcode import QRCode
 from keys.keys import masqueico_key, openai_key
 
 # ============================================
-# = Versao 2.1.0                           
+# = Versao 2.2.0                           
 # ============================================
 
 openai.api_key = openai_key()
@@ -21,8 +21,7 @@ class MyClient(discord.Client):
 
     async def on_ready(self):
         await client.tree.sync()
-        print(f'Logged in as {self.user} (ID: {self.user.id})')
-        print('🐒')
+        print(f'{self.user} (ID: {self.user.id}) is online! 🐒')
         print('- - - - - - - -')
 
     async def on_message(client, message):
@@ -39,14 +38,6 @@ class MyClient(discord.Client):
 intents = discord.Intents.all()
 client = MyClient(intents=intents)
 bot = commands.Bot(command_prefix="/", intents=intents)
-
-@client.tree.command(description="sincroniza comandos com codigo (admin)")
-async def sync(interaction: discord.Interaction):
-    if (interaction.user.id != 353864784950591490):
-        await interaction.response.send_message("comando para debug do codigo... apenas admins podem usar")
-        return
-    await client.tree.sync()
-    await interaction.response.send_message("sync feito com sucesso!")
 
 @client.tree.command(description="busca gif aleatorio")
 async def gif(interaction: discord.Interaction, query: str):    

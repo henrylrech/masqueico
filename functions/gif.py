@@ -2,10 +2,12 @@ import json
 import requests
 import random
 import discord
+from datetime import datetime
 
 class Gif():
     async def busca_gif(message: str, interaction: discord.Interaction):
-        print(f'gifquery: {message} ({interaction.user})')
+        datetime.now()
+        print(f'{datetime.now()} - gif -> query: {message} ({interaction.user})')
 
         try: 
             response = requests.get(f"https://tenor.googleapis.com/v2/search?q={str(message)}&key=AIzaSyBQcVVJiMmqJdnWeDaFxIa70O4tVZ-fA7I").text
