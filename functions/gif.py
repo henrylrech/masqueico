@@ -3,6 +3,7 @@ import requests
 import random
 import discord
 from datetime import datetime
+from keys.keys import tenor_key
 
 class Gif():
     async def busca_gif(message: str, interaction: discord.Interaction):
@@ -10,7 +11,7 @@ class Gif():
         print(f'{datetime.now()} - gif -> query: {message} ({interaction.user})')
 
         try: 
-            response = requests.get(f"https://tenor.googleapis.com/v2/search?q={str(message)}&key=AIzaSyBQcVVJiMmqJdnWeDaFxIa70O4tVZ-fA7I").text
+            response = requests.get(f"https://tenor.googleapis.com/v2/search?q={str(message)}&key={tenor_key()}-fA7I").text
             response_info = json.loads(response)
             final = random.choice(response_info['results'])['media_formats']['gif']['url']
             await interaction.response.send_message(final)
