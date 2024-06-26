@@ -1,3 +1,3 @@
 ## masqueico
 
-faz coisas sem sentido
+discord bot
